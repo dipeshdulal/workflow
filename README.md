@@ -8,7 +8,7 @@
 
 ##### Checklist:
 
-- [ ] GIN-GORM project setup (logging, database etc.).
+- [x] GIN-GORM project setup (logging, database etc.).
 - [ ] Workflow Nodes and transition implementation with gorm.
 - [ ] Workflow engine implementation.
 - [ ] Rest API implementation with basic transitions.
