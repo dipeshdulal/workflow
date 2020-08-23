@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/dipeshdulal/workflow/models"
 	"github.com/dipeshdulal/workflow/routes"
 	"github.com/dipeshdulal/workflow/utils"
 	"github.com/gin-gonic/gin"
@@ -20,17 +21,20 @@ func main() {
 	}
 
 	app := gin.Default()
-	routes.SetupRoutes(app)
 
 	db := utils.DBSetup(app)
-	app.Use(func(c *gin.Context) {
-		c.Set("db", db)
-	})
 	defer db.Close()
 
-	fmt.Println("---------------------------")
-	fmt.Println("----- WORKFLOW ENGINE -----")
-	fmt.Println("---------------------------")
+	models.Setup(db)
+	app.Use(func(c *gin.Context) {
+		fmt.Println("Middleware called.")
+		c.Set("db", db)
+	})
 
+	log.Println("---------------------------")
+	log.Println("----- WORKFLOW ENGINE -----")
+	log.Println("---------------------------")
+
+	routes.SetupRoutes(app)
 	app.Run(":" + os.Getenv("APP_PORT"))
 }

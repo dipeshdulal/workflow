@@ -1,8 +1,17 @@
-package model
+package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"log"
+
+	"github.com/jinzhu/gorm"
+)
 
 // Setup sets up model for gin
 func Setup(db *gorm.DB) {
-	// Automigrate code goes here
+
+	log.Println("----< AutoMigrating [if not migrated] >-----")
+
+	// Automigrate schema
+	db.AutoMigrate(&Workflow{})
+
 }
